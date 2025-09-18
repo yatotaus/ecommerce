@@ -1,5 +1,6 @@
 import React from 'react'
 import Card from "@/components/Card";
+import { getCurrentUser } from '@/lib/auth/actions';
 
 const products = [
   {
@@ -31,7 +32,10 @@ const products = [
   },
 ];
 
-const Home = () => {
+const Home = async () => {
+  const user = await getCurrentUser();
+  console.log("🚀 ~ Home ~ user:", user);
+
   return (
     <main className="space-y-8">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8">
