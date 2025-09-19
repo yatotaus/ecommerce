@@ -2,7 +2,7 @@
 
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, useMemo } from "react";
-import { getArrayParam, toggleArrayParam } from "@/lib/utils/query";
+import { getArrayParam, removeParams, toggleArrayParam } from "@/lib/utils/query";
 
 const GENDERS = ["men", "women", "unisex"] as const;
 const SIZES = ["XS", "S", "M", "L", "XL", "XXL"] as const;
