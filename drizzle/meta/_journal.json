@@ -5,15 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1758209899025,
-      "tag": "0000_fancy_eddie_brock",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1758272193327,
-      "tag": "0001_easy_gorilla_man",
+      "when": 1758278487646,
+      "tag": "0000_bizarre_strong_guy",
       "breakpoints": true
     }
   ]

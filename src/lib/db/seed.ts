@@ -1,13 +1,11 @@
-import { db } from '../db';
-import { genders, insertGenderSchema, type InsertGender } from './schema/filters/genders';
-import { colors, insertColorSchema, type InsertColor } from './schema/filters/colors';
-import { sizes, insertSizeSchema, type InsertSize } from './schema/filters/sizes';
-import { brands, insertBrandSchema, type InsertBrand } from './schema/brands';
-import { categories, insertCategorySchema, type InsertCategory } from './schema/categories';
-import { collections, insertCollectionSchema, type InsertCollection, productCollections } from './schema/collections';
-import { products, insertProductSchema, type InsertProduct } from './schema/products';
-import { productVariants, insertVariantSchema, type InsertVariant } from './schema/variants';
-import { productImages, insertProductImageSchema, type InsertProductImage } from './schema/images';
+import { db } from '@/lib/db';
+import {
+    genders, colors, sizes, brands, categories, collections, productCollections,
+    products, productVariants, productImages,
+    insertGenderSchema, insertColorSchema, insertSizeSchema, insertBrandSchema,
+    insertCategorySchema, insertCollectionSchema, insertProductSchema, insertVariantSchema, insertProductImageSchema,
+    type InsertProduct, type InsertVariant, type InsertProductImage,
+} from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { mkdirSync, existsSync, cpSync } from 'fs';
 import { join, basename } from 'path';
