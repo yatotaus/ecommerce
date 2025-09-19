@@ -65,17 +65,17 @@ export async function getAllProducts(filters: NormalizedProductFilters): Promise
     const hasPrice = !!(filters?.priceMin !== undefined || filters?.priceMax !== undefined || filters?.priceRanges?.length);
 
     const variantConds: SQL[] = [];
-    if (hasSize) {
+    if (hasSize && filters.sizeSlugs && filters.sizeSlugs.length > 0) {
         variantConds.push(inArray(productVariants.sizeId, db
             .select({ id: sizes.id })
             .from(sizes)
-            .where(inArray(sizes.slug, filters.sizeSlugs ?? []))));
+            .where(inArray(sizes.slug, filters.sizeSlugs))));
     }
-    if (hasColor) {
+    if (hasColor && filters.colorSlugs && filters.colorSlugs.length > 0) {
         variantConds.push(inArray(productVariants.colorId, db
             .select({ id: colors.id })
             .from(colors)
-            .where(inArray(colors.slug, filters.colorSlugs ?? []))));
+            .where(inArray(colors.slug, filters.colorSlugs))));
     }
     if (hasPrice) {
         const priceBounds: SQL[] = [];
@@ -113,7 +113,7 @@ export async function getAllProducts(filters: NormalizedProductFilters): Promise
         .from(productVariants)
         .where(variantConds.length ? and(...variantConds) : undefined)
         .as("v");
-    const imagesJoin = hasColor
+    const imagesJoin = (hasColor && filters.colorSlugs && filters.colorSlugs.length > 0)
         ? db
             .select({
                 productId: productImages.productId,
@@ -125,7 +125,7 @@ export async function getAllProducts(filters: NormalizedProductFilters): Promise
             .where(
                 inArray(
                     productVariants.colorId,
-                    db.select({ id: colors.id }).from(colors).where(inArray(colors.slug, filters.colorSlugs ?? []))
+                    db.select({ id: colors.id }).from(colors).where(inArray(colors.slug, filters.colorSlugs))
                 )
             )
             .as("pi")
