@@ -61,14 +61,22 @@ export async function getAllProducts(filters: NormalizedProductFilters): Promise
     // Obtener IDs de sizes y colors si hay filtros
     let sizeIds: string[] = [];
     let colorIds: string[] = [];
-    if ((filters.sizeSlugs ?? []).length > 0) {
-        const rows = await db.select({ id: sizes.id }).from(sizes).where(inArray(sizes.slug, filters.sizeSlugs ?? []));
+    if (filters.sizeSlugs && filters.sizeSlugs.length > 0) {
+        const rows = await db
+            .select({ id: sizes.id })
+            .from(sizes)
+            .where(inArray(sizes.slug, filters.sizeSlugs as string[]));
         sizeIds = rows.map(r => r.id);
     }
-    if ((filters.colorSlugs ?? []).length > 0) {
-        const rows = await db.select({ id: colors.id }).from(colors).where(inArray(colors.slug, filters.colorSlugs ?? []));
+
+    if (filters.colorSlugs && filters.colorSlugs.length > 0) {
+        const rows = await db
+            .select({ id: colors.id })
+            .from(colors)
+            .where(inArray(colors.slug, filters.colorSlugs as string[]));
         colorIds = rows.map(r => r.id);
     }
+
     const hasPrice = !!(filters.priceMin !== undefined || filters.priceMax !== undefined || (filters.priceRanges ?? []).length);
 
     const hasSize = sizeIds.length > 0;
